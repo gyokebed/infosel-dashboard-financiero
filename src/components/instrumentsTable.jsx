@@ -57,7 +57,7 @@ function InstrumentsTable() {
         </TableHead>
         <TableBody>
           {rows.map((row) => (
-            <StyledTableRow key={row.name}>
+            <StyledTableRow key={row.symbol}>
               <StyledTableCell component="th" scope="row">
                 {row.symbol}
               </StyledTableCell>

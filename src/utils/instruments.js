@@ -17,7 +17,7 @@ export const instruments = [
   { symbol: "AAXN", name: "AXON ENTERPRISE INC" },
   { symbol: "AB", name: "ALLIANCEBERNSTEIN HOLDING LP" },
   { symbol: "ABB", name: "ABB LTD SPON ADR EACH REP 1 ORD SHS" },
-  { symbol: "ABC", name: "ABBVIE INC" },
-  { symbol: "AAWW", name: "AMERISOURCEBERGEN CORPORATION" },
+  { symbol: "ABBV", name: "ABBVIE INC" },
+  { symbol: "ABC", name: "AMERISOURCEBERGEN CORPORATION" },
   { symbol: "ABCB", name: "AMERIS BANCORP" },
 ];
