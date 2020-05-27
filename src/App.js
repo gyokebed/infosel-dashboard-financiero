@@ -2,26 +2,14 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Button from "@material-ui/core/Button";
 import Box from "@material-ui/core/Box";
+import InstrumentsTable from "./components/instrumentsTable";
+import { instruments } from "./utils/instruments";
 import "./App.css";
 
 const apiKey = "A1TYJ6O8KY63WSSK";
 
-const intruments = [
-  "IBM",
-  "AAPL",
-  "AA",
-  "AAL",
-  "AAMC",
-  "ABEO",
-  "ABR",
-  "ABT",
-  "AC",
-  "ACB",
-  "ACEL",
-];
-
 function App() {
-  const instrument = intruments[0];
+  const instrument = instruments[0].symbol;
   const [data, setData] = useState("");
 
   useEffect(() => {
@@ -32,12 +20,12 @@ function App() {
       .then((res) => {
         setData(res.data);
       });
-  }, []);
+  }, [instrument]);
 
-  const handleClick = (e) => {
+  const handleClick = (instrument) => {
     axios
       .get(
-        `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${e.target.value}&interval=5min&apikey=${apiKey}`
+        `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${instrument}&interval=5min&apikey=${apiKey}`
       )
       .then((res) => {
         setData(res.data);
@@ -48,21 +36,24 @@ function App() {
 
   return (
     <Box className="App">
-      {intruments.map((instrument, index) => {
+      {instruments.map((instrument, index) => {
         return (
           <Button
             variant="contained"
             color="primary"
             key={index}
-            value={instrument}
-            onClick={handleClick}
+            onClick={() => {
+              handleClick(instrument.symbol);
+            }}
           >
-            {instrument}
+            {instrument.symbol}
           </Button>
         );
       })}
 
       <div>Symbol: {data && data["Meta Data"]["2. Symbol"]}</div>
+
+      <InstrumentsTable />
     </Box>
   );
 }
