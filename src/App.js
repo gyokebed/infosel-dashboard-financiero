@@ -28,7 +28,6 @@ function App() {
         `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${instrument}&interval=5min&apikey=demo`
       )
       .then((res) => {
-        // const symbol = res.data["Meta Data"]["2. Symbol"];
         setData(res.data);
       });
   }, []);
@@ -55,7 +54,7 @@ function App() {
         );
       })}
 
-      <div>{data && data["Meta Data"]["2. Symbol"]}</div>
+      <div>Symbol: {data && data["Meta Data"]["2. Symbol"]}</div>
     </div>
   );
 }
