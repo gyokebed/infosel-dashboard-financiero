@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import Button from "@material-ui/core/Button";
+import Box from "@material-ui/core/Box";
 import "./App.css";
 
 const apiKey = "A1TYJ6O8KY63WSSK";
@@ -45,17 +47,23 @@ function App() {
   console.log(data);
 
   return (
-    <div className="App">
+    <Box className="App">
       {intruments.map((instrument, index) => {
         return (
-          <button key={index} value={instrument} onClick={handleClick}>
+          <Button
+            variant="contained"
+            color="primary"
+            key={index}
+            value={instrument}
+            onClick={handleClick}
+          >
             {instrument}
-          </button>
+          </Button>
         );
       })}
 
       <div>Symbol: {data && data["Meta Data"]["2. Symbol"]}</div>
-    </div>
+    </Box>
   );
 }
 
