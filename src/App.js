@@ -2,7 +2,10 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./App.css";
 
+const apiKey = "A1TYJ6O8KY63WSSK";
+
 const intruments = [
+  "IBM",
   "AAPL",
   "AA",
   "AAL",
@@ -16,22 +19,31 @@ const intruments = [
 ];
 
 function App() {
+  const instrument = intruments[0];
   const [data, setData] = useState("");
+
   useEffect(() => {
     axios
       .get(
-        `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=IBM&interval=5min&apikey=demo`
+        `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${instrument}&interval=5min&apikey=demo`
       )
       .then((res) => {
-        const symbol = res.data["Meta Data"]["2. Symbol"];
-        setData(symbol);
-        console.log(res.data);
+        // const symbol = res.data["Meta Data"]["2. Symbol"];
+        setData(res.data);
       });
   }, []);
 
   const handleClick = (e) => {
-    console.log(e.target.value);
+    axios
+      .get(
+        `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${e.target.value}&interval=5min&apikey=${apiKey}`
+      )
+      .then((res) => {
+        setData(res.data);
+      });
   };
+
+  console.log(data);
 
   return (
     <div className="App">
@@ -42,6 +54,8 @@ function App() {
           </button>
         );
       })}
+
+      <div>{data && data["Meta Data"]["2. Symbol"]}</div>
     </div>
   );
 }
