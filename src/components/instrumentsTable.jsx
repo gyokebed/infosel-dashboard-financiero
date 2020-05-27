@@ -36,10 +36,9 @@ const useStyles = makeStyles({
 
 function InstrumentsTable({ data, instruments, onClick }) {
   const classes = useStyles();
-  console.log(data);
 
   const rows = instruments.map((instrument) => {
-    return { symbol: instrument.symbol, name: instrument.name };
+    return { symbol: instrument.symbol, name: instrument.description };
   });
 
   return (

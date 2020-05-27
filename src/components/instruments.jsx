@@ -2,15 +2,29 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import InstrumentsTable from "./instrumentsTable";
 import PaginationContainer from "./common/pagination";
-import { instruments } from "../utils/instruments";
+import { fakeInstruments } from "../utils/instruments";
 import { paginate } from "../utils/paginate";
 
 const apiKey = "A1TYJ6O8KY63WSSK";
-const instrument = instruments[0].symbol;
+const instrument = fakeInstruments[0].symbol;
 const pageSize = 5;
+
+const socket = new WebSocket("wss://ws.finnhub.io?token=br7cj5nrh5r9l4n3osvg");
+console.log(socket);
+
+// Connection opened -> Subscribe
+socket.addEventListener("open", function (event) {
+  socket.send(JSON.stringify({ type: "subscribe", symbol: "AAPL" }));
+});
+
+// Listen for messages
+socket.addEventListener("message", function (event) {
+  console.log("Message from server ", event.data);
+});
 
 const Instruments = () => {
   const [data, setData] = useState("");
+  const [instruments, setInstruments] = useState(fakeInstruments);
 
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -21,6 +35,14 @@ const Instruments = () => {
       )
       .then((res) => {
         setData(res.data);
+      });
+
+    axios
+      .get(
+        `https://finnhub.io/api/v1/stock/symbol?exchange=US&token=br7cj5nrh5r9l4n3osvg`
+      )
+      .then((res) => {
+        setInstruments(res.data);
       });
   }, []);
 
@@ -35,21 +57,22 @@ const Instruments = () => {
   };
 
   const getPagedData = () => {
-    const instrum = paginate(instruments, currentPage, pageSize);
-    return { totalCount: instruments.length, instrum };
+    const filteredData = paginate(instruments, currentPage, pageSize);
+    return { totalCount: instruments.length, filteredData };
   };
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
 
-  const { totalCount, instrum } = getPagedData();
+  const { totalCount, filteredData } = getPagedData();
+  console.log(filteredData);
 
   return (
     <React.Fragment>
       <InstrumentsTable
         data={data}
-        instruments={instrum}
+        instruments={filteredData}
         onClick={handleClick}
       />
       <PaginationContainer

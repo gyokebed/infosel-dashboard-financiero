@@ -1,4 +1,4 @@
-export const instruments = [
+export const fakeInstruments = [
   { symbol: "IBM", name: "INTERNATIONAL BUS MACH CORP" },
   { symbol: "A", name: "AGILENT TECHNOLOGIES INC" },
   { symbol: "AA", name: "ALCOA CORPORATION" },
