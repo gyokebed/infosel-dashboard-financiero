@@ -1,5 +1,5 @@
 import React from "react";
-import { instruments } from "../utils/instruments";
+
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -8,6 +8,7 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
+import Button from "@material-ui/core/Button";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -27,24 +28,19 @@ const StyledTableRow = withStyles((theme) => ({
   },
 }))(TableRow);
 
-function createData(symbol, name) {
-  return { symbol, name };
-}
-
-// const rows = [createData("IBM", "HOla ibm"), createData("AA", "HOla AA")];
-
-const rows = instruments.map((instrument) => {
-  return createData(instrument.symbol, instrument.name);
-});
-
 const useStyles = makeStyles({
   table: {
     minWidth: 700,
   },
 });
 
-function InstrumentsTable() {
+function InstrumentsTable({ data, instruments, onClick }) {
   const classes = useStyles();
+  console.log(data);
+
+  const rows = instruments.map((instrument) => {
+    return { symbol: instrument.symbol, name: instrument.name };
+  });
 
   return (
     <TableContainer component={Paper}>
@@ -56,10 +52,19 @@ function InstrumentsTable() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
-            <StyledTableRow key={row.symbol}>
+          {rows.map((row, index) => (
+            <StyledTableRow key={index}>
               <StyledTableCell component="th" scope="row">
-                {row.symbol}
+                <Button
+                  variant="contained"
+                  color="primary"
+                  key={index}
+                  onClick={() => {
+                    onClick(row.symbol);
+                  }}
+                >
+                  {row.symbol}
+                </Button>
               </StyledTableCell>
               <StyledTableCell>{row.name}</StyledTableCell>
             </StyledTableRow>
