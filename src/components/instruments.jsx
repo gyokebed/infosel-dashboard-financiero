@@ -14,6 +14,7 @@ let socket;
 const Instruments = () => {
   const [instruments, setInstruments] = useState([]);
   const [instrumentData, setInstrumentData] = useState("");
+  const [realTimeData, setRealTimeData] = useState("");
   const [currentInstrument, setCurrentInstrument] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -30,7 +31,10 @@ const Instruments = () => {
       const instrumentDataResult = await axios(
         `https://finnhub.io/api/v1/quote?symbol=${instrumentsResult.data[0].symbol}&token=${token}`
       );
+      setRealTimeData(instrumentDataResult.data);
       setInstrumentData(instrumentDataResult.data);
+
+      // New instance of websocket to connect real time data
 
       socket = new WebSocket(`wss://ws.finnhub.io?token=${token}`);
 
@@ -43,7 +47,7 @@ const Instruments = () => {
       socket.addEventListener("message", function (event) {
         const receivedData = JSON.parse(event.data);
         console.log("Message from server ", receivedData);
-        if (receivedData.type === "trade") setInstrumentData(receivedData);
+        if (receivedData.type === "trade") setRealTimeData(receivedData);
       });
     }
 
@@ -68,6 +72,7 @@ const Instruments = () => {
       `https://finnhub.io/api/v1/quote?symbol=${instrument}&token=${token}`
     );
 
+    setRealTimeData(instrumentDataResult.data);
     setInstrumentData(instrumentDataResult.data);
     setCurrentInstrument(instrument);
   };
@@ -99,6 +104,7 @@ const Instruments = () => {
       </Grid>
       <Grid item sm={6}>
         <InstrumentInfo
+          realTimeData={realTimeData}
           data={instrumentData}
           currentInstrument={currentInstrument}
         />

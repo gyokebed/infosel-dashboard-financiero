@@ -1,12 +1,15 @@
 import React from "react";
+import RealTimeQuote from "./realTimeQuote";
 
-const InstrumentInfo = ({ data, currentInstrument }) => {
-  const price = data.type === "trade" ? data.data[0].p : data.c;
-  let lastRefreshed = data.type === "trade" ? data.data[0].t : data.t * 1000;
+const InstrumentInfo = ({ realTimeData, data, currentInstrument }) => {
+  console.log("RT:", realTimeData, "data:", data);
+  const price = realTimeData.type === "trade" ? realTimeData.data[0].p : data.c;
+  let lastRefreshed =
+    realTimeData.type === "trade" ? realTimeData.data[0].t : data.t * 1000;
 
   function convert(unixTimestamp) {
     const dateObject = new Date(unixTimestamp);
-    const humanDateFormat = dateObject.toLocaleString(); //2019-12-9 10:30:15
+    const humanDateFormat = dateObject.toLocaleString();
     return humanDateFormat;
   }
 
@@ -14,9 +17,12 @@ const InstrumentInfo = ({ data, currentInstrument }) => {
 
   return (
     <React.Fragment>
-      <div>{data ? currentInstrument : ""}</div>
-      <div>Price: {data ? price : ""}</div>
-      <div>Last trade: {data ? lastRefreshed : ""}</div>
+      <RealTimeQuote
+        data={realTimeData}
+        price={price}
+        lastRefreshed={lastRefreshed}
+        currentInstrument={currentInstrument}
+      />
     </React.Fragment>
   );
 };
