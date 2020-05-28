@@ -5,8 +5,10 @@ import Quote from "./quote";
 const InstrumentInfo = ({ realTimeData, data, currentInstrument }) => {
   const price = realTimeData.type === "trade" ? realTimeData.data[0].p : data.c;
   const volume = realTimeData.type === "trade" ? realTimeData.data[0].v : "";
-  let lastRefreshed =
+  let realTimeLastRefreshed =
     realTimeData.type === "trade" ? realTimeData.data[0].t : data.t * 1000;
+
+  let lastRefreshed = convert(data.t * 1000);
 
   function convert(unixTimestamp) {
     const dateObject = new Date(unixTimestamp);
@@ -14,7 +16,7 @@ const InstrumentInfo = ({ realTimeData, data, currentInstrument }) => {
     return humanDateFormat;
   }
 
-  lastRefreshed = convert(lastRefreshed);
+  realTimeLastRefreshed = convert(realTimeLastRefreshed);
 
   return (
     <React.Fragment>
@@ -22,11 +24,11 @@ const InstrumentInfo = ({ realTimeData, data, currentInstrument }) => {
         realTimeData={realTimeData}
         data={data}
         price={price}
-        lastRefreshed={lastRefreshed}
+        realTimeLastRefreshed={realTimeLastRefreshed}
         currentInstrument={currentInstrument}
         volume={volume}
       />
-      <Quote data={data} />
+      <Quote data={data} lastRefreshed={lastRefreshed} />
     </React.Fragment>
   );
 };

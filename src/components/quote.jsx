@@ -1,6 +1,6 @@
 import React from "react";
 
-const Quote = ({ data }) => {
+const Quote = ({ data, lastRefreshed }) => {
   console.log(data);
   return (
     <React.Fragment>
@@ -9,6 +9,7 @@ const Quote = ({ data }) => {
       <div>High price: {data.h}</div>
       <div>Low price: {data.l}</div>
       <div>Previous close price: {data.pc}</div>
+      <div>Last refreshed: {lastRefreshed}</div>
     </React.Fragment>
   );
 };

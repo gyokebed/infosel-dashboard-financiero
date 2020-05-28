@@ -4,15 +4,15 @@ const RealTimeQuote = ({
   realTimeData,
   price,
   volume,
-  lastRefreshed,
+  realTimeLastRefreshed,
   currentInstrument,
 }) => {
   return (
     <React.Fragment>
       <h1>Quote</h1>
-      <div>{realTimeData ? currentInstrument : ""}</div>
+      <div>Symbol: {realTimeData ? currentInstrument : ""}</div>
       <div>Price: {realTimeData ? price : ""}</div>
-      <div>Last Refreshed: {realTimeData ? lastRefreshed : ""}</div>
+      <div>Last Refreshed: {realTimeData ? realTimeLastRefreshed : ""}</div>
       {volume ? <div>Volume: {volume}</div> : ""}
     </React.Fragment>
   );
