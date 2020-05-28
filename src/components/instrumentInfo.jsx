@@ -1,9 +1,10 @@
 import React from "react";
 import RealTimeQuote from "./realTimeQuote";
+import Quote from "./quote";
 
 const InstrumentInfo = ({ realTimeData, data, currentInstrument }) => {
-  console.log("RT:", realTimeData, "data:", data);
   const price = realTimeData.type === "trade" ? realTimeData.data[0].p : data.c;
+  const volume = realTimeData.type === "trade" ? realTimeData.data[0].v : "";
   let lastRefreshed =
     realTimeData.type === "trade" ? realTimeData.data[0].t : data.t * 1000;
 
@@ -18,11 +19,14 @@ const InstrumentInfo = ({ realTimeData, data, currentInstrument }) => {
   return (
     <React.Fragment>
       <RealTimeQuote
-        data={realTimeData}
+        realTimeData={realTimeData}
+        data={data}
         price={price}
         lastRefreshed={lastRefreshed}
         currentInstrument={currentInstrument}
+        volume={volume}
       />
+      <Quote data={data} />
     </React.Fragment>
   );
 };
