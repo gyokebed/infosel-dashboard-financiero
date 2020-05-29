@@ -9,6 +9,7 @@ import { paginate } from "../utils/paginate";
 import {
   getListOfInstruments,
   getDataFromAnInstrument,
+  updateMonthlyData,
 } from "../services/instrumentsService";
 
 const apiKey = "A1TYJ6O8KY63WSSK";
@@ -45,7 +46,7 @@ const Instruments = () => {
         `https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&symbol=${firstIntrumentOnList}&apikey=${apiKey}`
       );
 
-      updateMonthlyData(monthlyDataResult);
+      setMonthtlyData(updateMonthlyData(monthlyDataResult));
 
       // New instance of websocket to connect real time data
 
@@ -66,21 +67,6 @@ const Instruments = () => {
 
     getData();
   }, []);
-
-  const updateMonthlyData = (result) => {
-    console.log(result);
-    let monthtlyArrayData = [];
-    let monthtlyTimeSeries = Object.keys(result.data)[1];
-    for (let key in result.data[monthtlyTimeSeries])
-      monthtlyArrayData.push({
-        Date: key,
-        Open: result.data[monthtlyTimeSeries][key]["1. open"],
-        High: result.data[monthtlyTimeSeries][key]["2. high"],
-        Low: result.data[monthtlyTimeSeries][key]["3. low"],
-        Close: result.data[monthtlyTimeSeries][key]["4. close"],
-      });
-    setMonthtlyData(monthtlyArrayData.reverse());
-  };
 
   // Initial Subscription
   const subscribe = (instrument) => {
@@ -109,7 +95,7 @@ const Instruments = () => {
       `https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&symbol=${instrument}&apikey=${apiKey}`
     );
 
-    updateMonthlyData(monthlyDataResult);
+    setMonthtlyData(updateMonthlyData(monthlyDataResult));
 
     setCurrentInstrument(instrument);
   };
