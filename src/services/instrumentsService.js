@@ -2,6 +2,7 @@ import { apiUrl } from "../config.json";
 import axios from "axios";
 
 const token = "br7cj5nrh5r9l4n3osvg";
+const apiKey = "A1TYJ6O8KY63WSSK";
 
 export const getListOfInstruments = () => {
   const apiEndpoint = `${apiUrl}/stock/symbol?exchange=US&token=${token}`;
@@ -10,6 +11,11 @@ export const getListOfInstruments = () => {
 
 export const getDataFromAnInstrument = (instrument) => {
   const apiEndpoint = `https://finnhub.io/api/v1/quote?symbol=${instrument}&token=${token}`;
+  return axios.get(apiEndpoint);
+};
+
+export const getMonthlyData = (instrument) => {
+  const apiEndpoint = `https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&symbol=${instrument}&apikey=${apiKey}`;
   return axios.get(apiEndpoint);
 };
 

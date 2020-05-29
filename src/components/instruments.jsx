@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import Grid from "@material-ui/core/Grid";
 import InstrumentsTable from "./instrumentsTable";
 import InstrumentInfo from "./instrumentInfo";
@@ -10,9 +9,9 @@ import {
   getListOfInstruments,
   getDataFromAnInstrument,
   updateMonthlyData,
+  getMonthlyData,
 } from "../services/instrumentsService";
 
-const apiKey = "A1TYJ6O8KY63WSSK";
 const token = "br7cj5nrh5r9l4n3osvg";
 const pageSize = 5;
 let socket;
@@ -42,10 +41,8 @@ const Instruments = () => {
       setInstrumentData(instrumentDataResult);
       setRealTimeData(instrumentDataResult);
 
-      const monthlyDataResult = await axios(
-        `https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&symbol=${firstIntrumentOnList}&apikey=${apiKey}`
-      );
-
+      // Set monthly data
+      const monthlyDataResult = await getMonthlyData(firstIntrumentOnList);
       setMonthtlyData(updateMonthlyData(monthlyDataResult));
 
       // New instance of websocket to connect real time data
@@ -91,10 +88,8 @@ const Instruments = () => {
     setInstrumentData(instrumentDataResult);
     setRealTimeData(instrumentDataResult);
 
-    const monthlyDataResult = await axios(
-      `https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&symbol=${instrument}&apikey=${apiKey}`
-    );
-
+    // Set monthly data
+    const monthlyDataResult = await getMonthlyData(instrument);
     setMonthtlyData(updateMonthlyData(monthlyDataResult));
 
     setCurrentInstrument(instrument);
