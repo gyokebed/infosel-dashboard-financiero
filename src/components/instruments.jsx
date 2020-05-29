@@ -6,7 +6,10 @@ import InstrumentInfo from "./instrumentInfo";
 import InstrumentChart from "./instrumentChart";
 import PaginationContainer from "./common/pagination";
 import { paginate } from "../utils/paginate";
-import { getListOfInstruments } from "../services/instrumentsService";
+import {
+  getListOfInstruments,
+  getDataFromAnInstrument,
+} from "../services/instrumentsService";
 
 const apiKey = "A1TYJ6O8KY63WSSK";
 const token = "br7cj5nrh5r9l4n3osvg";
@@ -23,17 +26,20 @@ const Instruments = () => {
 
   useEffect(() => {
     async function getData() {
-      const { data: listOfInstruments } = await getListOfInstruments();
-      const firstIntrumentOnList = listOfInstruments[0].symbol;
-      setInstruments(listOfInstruments);
+      // Get list of instruments
+      const { data: listOfInstrumentsResult } = await getListOfInstruments();
+      const firstIntrumentOnList = listOfInstrumentsResult[0].symbol;
+      setInstruments(listOfInstrumentsResult);
       // Set the current instrument state to first symbol of the retrieved array
       setCurrentInstrument(firstIntrumentOnList);
 
-      const instrumentDataResult = await axios(
-        `https://finnhub.io/api/v1/quote?symbol=${firstIntrumentOnList}&token=${token}`
+      // Get data from an instrument
+      const { data: instrumentDataResult } = await getDataFromAnInstrument(
+        firstIntrumentOnList
       );
-      setRealTimeData(instrumentDataResult.data);
-      setInstrumentData(instrumentDataResult.data);
+      // Set instrument data and real time data
+      setInstrumentData(instrumentDataResult);
+      setRealTimeData(instrumentDataResult);
 
       const monthlyDataResult = await axios(
         `https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&symbol=${firstIntrumentOnList}&apikey=${apiKey}`
@@ -91,12 +97,13 @@ const Instruments = () => {
 
     subscribe(instrument);
 
-    const instrumentDataResult = await axios(
-      `https://finnhub.io/api/v1/quote?symbol=${instrument}&token=${token}`
+    // Get data from an instrument
+    const { data: instrumentDataResult } = await getDataFromAnInstrument(
+      instrument
     );
-
-    setRealTimeData(instrumentDataResult.data);
-    setInstrumentData(instrumentDataResult.data);
+    // Set instrument data and real time data
+    setInstrumentData(instrumentDataResult);
+    setRealTimeData(instrumentDataResult);
 
     const monthlyDataResult = await axios(
       `https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&symbol=${instrument}&apikey=${apiKey}`
