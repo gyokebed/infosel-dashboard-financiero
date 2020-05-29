@@ -6,6 +6,7 @@ import InstrumentInfo from "./instrumentInfo";
 import InstrumentChart from "./instrumentChart";
 import PaginationContainer from "./common/pagination";
 import { paginate } from "../utils/paginate";
+import { getListOfInstruments } from "../services/instrumentsService";
 
 const apiKey = "A1TYJ6O8KY63WSSK";
 const token = "br7cj5nrh5r9l4n3osvg";
@@ -20,25 +21,22 @@ const Instruments = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [monthtlyData, setMonthtlyData] = useState([]);
 
-  // API call -> Retrieve Symbols from Finnhub
   useEffect(() => {
     async function getData() {
-      const instrumentsResult = await axios(
-        `https://finnhub.io/api/v1/stock/symbol?exchange=US&token=${token}`
-      );
-      setInstruments(instrumentsResult.data);
-
-      setCurrentInstrument(instrumentsResult.data[0].symbol);
+      const { data: listOfInstruments } = await getListOfInstruments();
+      const firstIntrumentOnList = listOfInstruments[0].symbol;
+      setInstruments(listOfInstruments);
+      // Set the current instrument state to first symbol of the retrieved array
+      setCurrentInstrument(firstIntrumentOnList);
 
       const instrumentDataResult = await axios(
-        `https://finnhub.io/api/v1/quote?symbol=${instrumentsResult.data[0].symbol}&token=${token}`
+        `https://finnhub.io/api/v1/quote?symbol=${firstIntrumentOnList}&token=${token}`
       );
       setRealTimeData(instrumentDataResult.data);
       setInstrumentData(instrumentDataResult.data);
 
       const monthlyDataResult = await axios(
-        `https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&symbol=IBM&apikey=demo` // Only for demo purposes
-        // `https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&symbol=${instrumentsResult.data[0].symbol}&apikey=demo`
+        `https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&symbol=${firstIntrumentOnList}&apikey=${apiKey}`
       );
 
       updateMonthlyData(monthlyDataResult);
@@ -49,7 +47,7 @@ const Instruments = () => {
 
       // Connection opened -> Subscribe
       socket.addEventListener("open", function (event) {
-        subscribe(instrumentsResult.data[0].symbol);
+        subscribe(firstIntrumentOnList);
       });
 
       // Listen for messages
