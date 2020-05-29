@@ -3,7 +3,7 @@ import axios from "axios";
 import Grid from "@material-ui/core/Grid";
 import InstrumentsTable from "./instrumentsTable";
 import InstrumentInfo from "./instrumentInfo";
-import InstrumentsChart from "./instrumentsChart";
+import InstrumentChart from "./instrumentChart";
 import PaginationContainer from "./common/pagination";
 import { paginate } from "../utils/paginate";
 
@@ -131,7 +131,7 @@ const Instruments = () => {
         </Grid>
       </Grid>
 
-      <InstrumentsChart
+      <InstrumentChart
         data={monthtlyData}
         currentInstrument={currentInstrument}
       />
