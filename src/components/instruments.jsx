@@ -36,22 +36,12 @@ const Instruments = () => {
       setRealTimeData(instrumentDataResult.data);
       setInstrumentData(instrumentDataResult.data);
 
-      const result = await axios(
-        `https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&symbol=IBM&apikey=demo`
+      const monthlyDataResult = await axios(
+        `https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&symbol=IBM&apikey=demo` // Only for demo purposes
+        // `https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&symbol=${instrumentsResult.data[0].symbol}&apikey=demo`
       );
 
-      let monthtlyArrayData = [];
-      let monthtlyTimeSeries = Object.keys(result.data)[1];
-      for (let key in result.data[monthtlyTimeSeries])
-        monthtlyArrayData.push({
-          Date: key,
-          Open: result.data[monthtlyTimeSeries][key]["1. open"],
-          High: result.data[monthtlyTimeSeries][key]["2. high"],
-          Low: result.data[monthtlyTimeSeries][key]["3. low"],
-          Close: result.data[monthtlyTimeSeries][key]["4. close"],
-          // volume: result.data[monthtlyTimeSeries][key]["5. volume"],
-        });
-      setMonthtlyData(monthtlyArrayData.reverse());
+      updateMonthlyData(monthlyDataResult);
 
       // New instance of websocket to connect real time data
 
@@ -73,6 +63,22 @@ const Instruments = () => {
     getData();
   }, []);
 
+  const updateMonthlyData = (result) => {
+    console.log(result);
+    let monthtlyArrayData = [];
+    let monthtlyTimeSeries = Object.keys(result.data)[1];
+    for (let key in result.data[monthtlyTimeSeries])
+      monthtlyArrayData.push({
+        Date: key,
+        Open: result.data[monthtlyTimeSeries][key]["1. open"],
+        High: result.data[monthtlyTimeSeries][key]["2. high"],
+        Low: result.data[monthtlyTimeSeries][key]["3. low"],
+        Close: result.data[monthtlyTimeSeries][key]["4. close"],
+      });
+    setMonthtlyData(monthtlyArrayData.reverse());
+  };
+
+  // Initial Subscription
   const subscribe = (instrument) => {
     socket.send(JSON.stringify({ type: "subscribe", symbol: instrument }));
   };
@@ -93,6 +99,13 @@ const Instruments = () => {
 
     setRealTimeData(instrumentDataResult.data);
     setInstrumentData(instrumentDataResult.data);
+
+    const monthlyDataResult = await axios(
+      `https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&symbol=${instrument}&apikey=${apiKey}`
+    );
+
+    updateMonthlyData(monthlyDataResult);
+
     setCurrentInstrument(instrument);
   };
 
