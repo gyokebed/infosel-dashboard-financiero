@@ -128,7 +128,12 @@ const Instruments = () => {
 
   return (
     <InstrumentContext.Provider
-      value={{ instrumentsList: filteredData, onClick: handleClick }}
+      value={{
+        instrumentsList: filteredData, // InstrumentsTable uses this value
+        onClick: handleClick, // InstrumentsTable uses this value
+        searchQuery: searchQuery, // SearchBox uses this value
+        onSearch: handleSearch, // SearchBox uses this value
+      }}
     >
       <main className={classes.content}>
         <div className={classes.appBarSpacer}>
@@ -138,9 +143,6 @@ const Instruments = () => {
               <Grid item xs={12} md={8}>
                 <Paper className={classes.paper}>
                   <InstrumentsDirectory
-                    searchQuery={searchQuery}
-                    handleSearch={handleSearch}
-                    // handleClick={handleClick}
                     handlePageChange={handlePageChange}
                     totalCount={totalCount}
                     pageSize={pageSize}

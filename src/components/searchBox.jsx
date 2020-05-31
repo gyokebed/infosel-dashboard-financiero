@@ -1,5 +1,5 @@
-import React from "react";
-
+import React, { useContext } from "react";
+import InstrumentsContext from "../context/instrumentsContext";
 import { TextField, makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
@@ -12,8 +12,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SearchBox = ({ value, onChange }) => {
+const SearchBox = () => {
   const classes = useStyles();
+  const { searchQuery, onSearch } = useContext(InstrumentsContext);
   return (
     <form className={classes.root} noValidate autoComplete="off">
       <div>
@@ -22,8 +23,8 @@ const SearchBox = ({ value, onChange }) => {
           label="Buscar"
           type="search"
           variant="outlined"
-          value={value}
-          onChange={(e) => onChange(e.currentTarget.value)}
+          value={searchQuery}
+          onChange={(e) => onSearch(e.currentTarget.value)}
         />
       </div>
     </form>

@@ -4,7 +4,6 @@ import InstrumentsTable from "./instrumentsTable";
 import PaginationContainer from "./common/pagination";
 
 const InstrumentsDirectory = ({
-  searchQuery,
   handleSearch,
   handlePageChange,
   totalCount,
@@ -12,7 +11,7 @@ const InstrumentsDirectory = ({
 }) => {
   return (
     <React.Fragment>
-      <SearchBox value={searchQuery} onChange={handleSearch} />
+      <SearchBox />
       <InstrumentsTable />
       <PaginationContainer
         itemsCount={totalCount}
