@@ -171,7 +171,7 @@ const Instruments = () => {
       </Grid>
       {/* Historic Prices */}
       <Grid item xs={12}>
-        <Paper className={classes.paper}>
+        <Paper className={classes.paper} style={{ height: 400, width: "100%" }}>
           <HistoricPricesTable instruments={monthtlyData} />
         </Paper>
       </Grid>

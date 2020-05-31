@@ -29,7 +29,7 @@ const InstrumentChart = ({ data, currentInstrument }) => {
   };
 
   return (
-    <div id="chart-demo">
+    <React.Fragment>
       <Chart id="zoomedChart" dataSource={data} title={currentInstrument}>
         <Series
           type="candleStick"
@@ -71,7 +71,7 @@ const InstrumentChart = ({ data, currentInstrument }) => {
         />
         <Behavior snapToTicks={false} callValueChanged="onMoving" />
       </RangeSelector>
-    </div>
+    </React.Fragment>
   );
 };
 

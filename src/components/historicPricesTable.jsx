@@ -159,7 +159,7 @@ const VirtualizedTable = withStyles(styles)(MuiVirtualizedTable);
 
 const HistoricPricesTable = ({ instruments: rows }) => {
   return (
-    <Paper style={{ height: 400, width: "100%" }}>
+    <React.Fragment>
       <VirtualizedTable
         rowCount={rows.length}
         rowGetter={({ index }) => rows[index]}
@@ -201,7 +201,7 @@ const HistoricPricesTable = ({ instruments: rows }) => {
           },
         ]}
       />
-    </Paper>
+    </React.Fragment>
   );
 };
 
