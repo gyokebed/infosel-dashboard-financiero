@@ -127,7 +127,9 @@ const Instruments = () => {
   const { totalCount, filteredData } = getPagedData();
 
   return (
-    <InstrumentContext.Provider value={filteredData}>
+    <InstrumentContext.Provider
+      value={{ instrumentsList: filteredData, onClick: handleClick }}
+    >
       <main className={classes.content}>
         <div className={classes.appBarSpacer}>
           <Container maxWidth="lg" className={classes.container}>
@@ -138,10 +140,8 @@ const Instruments = () => {
                   <InstrumentsDirectory
                     searchQuery={searchQuery}
                     handleSearch={handleSearch}
-                    handleClick={handleClick}
+                    // handleClick={handleClick}
                     handlePageChange={handlePageChange}
-                    instrumentData={instrumentData}
-                    filteredData={filteredData}
                     totalCount={totalCount}
                     pageSize={pageSize}
                   />

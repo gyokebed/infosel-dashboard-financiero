@@ -35,11 +35,11 @@ const useStyles = makeStyles({
   },
 });
 
-function InstrumentsTable({ onClick }) {
+function InstrumentsTable() {
   const classes = useStyles();
-  const instruments = useContext(InstrumentsContext);
+  const { instrumentsList, onClick } = useContext(InstrumentsContext);
 
-  const rows = instruments.map((instrument) => {
+  const rows = instrumentsList.map((instrument) => {
     return {
       symbol: instrument.symbol,
       name: instrument.description || instrument.displaySymbol,
