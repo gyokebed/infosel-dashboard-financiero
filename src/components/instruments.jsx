@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import InstrumentContext from "../context/instrumentsContext";
+import DirectoryContext from "../context/directoryContext";
 import { Grid, Paper, Container } from "@material-ui/core";
 import { useStyles } from "../Dashboard";
 import InstrumentQuote from "./instrumentQuote";
@@ -127,7 +127,7 @@ const Instruments = () => {
   const { totalCount, filteredData } = getPagedData();
 
   return (
-    <InstrumentContext.Provider
+    <DirectoryContext.Provider
       value={{
         instrumentsList: filteredData, // InstrumentsTable uses this value
         onClick: handleClick, // InstrumentsTable uses this value
@@ -187,7 +187,7 @@ const Instruments = () => {
           </Container>
         </div>
       </main>
-    </InstrumentContext.Provider>
+    </DirectoryContext.Provider>
   );
 };
 

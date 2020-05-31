@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import InstrumentsContext from "../context/instrumentsContext";
+import DirectoryContext from "../context/directoryContext";
 import { TextField, makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
 
 const SearchBox = () => {
   const classes = useStyles();
-  const { searchQuery, onSearch } = useContext(InstrumentsContext);
+  const { searchQuery, onSearch } = useContext(DirectoryContext);
   return (
     <form className={classes.root} noValidate autoComplete="off">
       <div>

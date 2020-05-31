@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import InstrumentsContext from "../context/instrumentsContext";
+import DirectoryContext from "../context/directoryContext";
 import {
   withStyles,
   makeStyles,
@@ -37,7 +37,7 @@ const useStyles = makeStyles({
 
 function InstrumentsTable() {
   const classes = useStyles();
-  const { instrumentsList, onClick } = useContext(InstrumentsContext);
+  const { instrumentsList, onClick } = useContext(DirectoryContext);
 
   const rows = instrumentsList.map((instrument) => {
     return {
