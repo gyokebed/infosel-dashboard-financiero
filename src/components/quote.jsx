@@ -1,7 +1,6 @@
 import React from "react";
 
 const Quote = ({ data, lastRefreshed }) => {
-  console.log(data);
   return (
     <React.Fragment>
       <h1>Quote (Day)</h1>

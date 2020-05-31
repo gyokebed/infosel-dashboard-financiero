@@ -4,6 +4,7 @@ import InstrumentsTable from "./instrumentsTable";
 import InstrumentInfo from "./instrumentInfo";
 import InstrumentChart from "./instrumentChart";
 import PaginationContainer from "./common/pagination";
+import ReactVirtualizedTable from "./historicPricesTable";
 import { paginate } from "../utils/paginate";
 import {
   getListOfInstruments,
@@ -129,11 +130,11 @@ const Instruments = () => {
           />
         </Grid>
       </Grid>
-
       <InstrumentChart
         data={monthtlyData}
         currentInstrument={currentInstrument}
       />
+      <ReactVirtualizedTable instruments={monthtlyData} />
     </React.Fragment>
   );
 };

@@ -64,8 +64,8 @@ const InstrumentChart = ({ data, currentInstrument }) => {
         </RsChart>
         <Scale
           placeholderHeight={20}
-          minorTickInterval="day"
-          tickInterval="month"
+          minorTickInterval="month"
+          tickInterval="year"
           valueType="datetime"
           aggregationInterval="week"
         />

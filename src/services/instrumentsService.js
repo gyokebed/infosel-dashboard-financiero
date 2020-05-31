@@ -29,6 +29,7 @@ export const updateMonthlyData = (result) => {
       High: result.data[monthtlyTimeSeries][key]["2. high"],
       Low: result.data[monthtlyTimeSeries][key]["3. low"],
       Close: result.data[monthtlyTimeSeries][key]["4. close"],
+      Volume: result.data[monthtlyTimeSeries][key]["5. volume"],
     });
-  return monthtlyArrayData.reverse();
+  return monthtlyArrayData;
 };
