@@ -1,9 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import clsx from "clsx";
-import { withStyles } from "@material-ui/core/styles";
-import TableCell from "@material-ui/core/TableCell";
-import Paper from "@material-ui/core/Paper";
+import { withStyles, TableCell } from "@material-ui/core";
 import { AutoSizer, Column, Table } from "react-virtualized";
 
 const styles = (theme) => ({
@@ -159,49 +157,47 @@ const VirtualizedTable = withStyles(styles)(MuiVirtualizedTable);
 
 const HistoricPricesTable = ({ instruments: rows }) => {
   return (
-    <React.Fragment>
-      <VirtualizedTable
-        rowCount={rows.length}
-        rowGetter={({ index }) => rows[index]}
-        columns={[
-          {
-            width: 200,
-            label: "Date",
-            dataKey: "Date",
-          },
-          {
-            width: 120,
-            label: "Open",
-            dataKey: "Open",
-            numeric: true,
-          },
-          {
-            width: 120,
-            label: "High",
-            dataKey: "High",
-            numeric: true,
-          },
-          {
-            width: 120,
-            label: "Low",
-            dataKey: "Low",
-            numeric: true,
-          },
-          {
-            width: 120,
-            label: "Close",
-            dataKey: "Close",
-            numeric: true,
-          },
-          {
-            width: 120,
-            label: "Volume",
-            dataKey: "Volume",
-            numeric: true,
-          },
-        ]}
-      />
-    </React.Fragment>
+    <VirtualizedTable
+      rowCount={rows.length}
+      rowGetter={({ index }) => rows[index]}
+      columns={[
+        {
+          width: 200,
+          label: "Date",
+          dataKey: "Date",
+        },
+        {
+          width: 120,
+          label: "Open",
+          dataKey: "Open",
+          numeric: true,
+        },
+        {
+          width: 120,
+          label: "High",
+          dataKey: "High",
+          numeric: true,
+        },
+        {
+          width: 120,
+          label: "Low",
+          dataKey: "Low",
+          numeric: true,
+        },
+        {
+          width: 120,
+          label: "Close",
+          dataKey: "Close",
+          numeric: true,
+        },
+        {
+          width: 120,
+          label: "Volume",
+          dataKey: "Volume",
+          numeric: true,
+        },
+      ]}
+    />
   );
 };
 

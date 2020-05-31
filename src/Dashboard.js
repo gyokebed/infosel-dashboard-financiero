@@ -1,10 +1,11 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import Container from "@material-ui/core/Container";
-import CssBaseline from "@material-ui/core/CssBaseline";
+import {
+  makeStyles,
+  AppBar,
+  Toolbar,
+  Typography,
+  CssBaseline,
+} from "@material-ui/core";
 
 import Instruments from "./components/instruments";
 
@@ -39,7 +40,7 @@ export const useStyles = makeStyles((theme) => ({
     overflow: "auto",
   },
   container: {
-    paddingTop: theme.spacing(4),
+    paddingTop: theme.spacing(12),
     paddingBottom: theme.spacing(4),
   },
   paper: {
@@ -71,12 +72,7 @@ function Dashboard() {
           </Typography>
         </Toolbar>
       </AppBar>
-      <main className={classes.content}>
-        <div className={classes.appBarSpacer} />
-        <Container maxWidth="lg" className={classes.container}>
-          <Instruments />
-        </Container>
-      </main>
+      <Instruments />
     </div>
   );
 }
