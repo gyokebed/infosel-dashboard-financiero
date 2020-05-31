@@ -157,7 +157,7 @@ const VirtualizedTable = withStyles(styles)(MuiVirtualizedTable);
 
 // ---
 
-export default function ReactVirtualizedTable({ instruments: rows }) {
+const HistoricPricesTable = ({ instruments: rows }) => {
   return (
     <Paper style={{ height: 400, width: "100%" }}>
       <VirtualizedTable
@@ -203,4 +203,6 @@ export default function ReactVirtualizedTable({ instruments: rows }) {
       />
     </Paper>
   );
-}
+};
+
+export default HistoricPricesTable;

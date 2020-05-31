@@ -7,13 +7,11 @@ import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
-import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
-    backgroundColor: theme.palette.common.black,
-    color: theme.palette.common.white,
+    fontWeight: 700,
   },
   body: {
     fontSize: 14,
@@ -45,7 +43,7 @@ function InstrumentsTable({ data, instruments, onClick }) {
   });
 
   return (
-    <TableContainer component={Paper}>
+    <TableContainer>
       <Table className={classes.table} aria-label="customized table">
         <TableHead>
           <TableRow>
@@ -56,7 +54,7 @@ function InstrumentsTable({ data, instruments, onClick }) {
         <TableBody>
           {rows.map((row, index) => (
             <StyledTableRow key={index}>
-              <StyledTableCell component="th" scope="row">
+              <TableCell component="th" scope="row">
                 <Button
                   variant="contained"
                   color="primary"
@@ -67,8 +65,8 @@ function InstrumentsTable({ data, instruments, onClick }) {
                 >
                   {row.symbol}
                 </Button>
-              </StyledTableCell>
-              <StyledTableCell>{row.name}</StyledTableCell>
+              </TableCell>
+              <TableCell>{row.name}</TableCell>
             </StyledTableRow>
           ))}
         </TableBody>

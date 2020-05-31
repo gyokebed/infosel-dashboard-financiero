@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import Grid from "@material-ui/core/Grid";
-import InstrumentsTable from "./instrumentsTable";
-import InstrumentInfo from "./instrumentInfo";
+import Paper from "@material-ui/core/Paper";
+
+import { useStyles } from "../Dashboard";
+import InstrumentQuote from "./instrumentQuote";
 import InstrumentChart from "./instrumentChart";
-import PaginationContainer from "./common/pagination";
-import ReactVirtualizedTable from "./historicPricesTable";
-import SearchBox from "./searchBox";
+import HistoricPricesTable from "./historicPricesTable";
 import { paginate } from "../utils/paginate";
 import {
   getListOfInstruments,
@@ -13,12 +13,14 @@ import {
   updateMonthlyData,
   getMonthlyData,
 } from "../services/instrumentsService";
+import InstrumentsDirectory from "./instrumentDirectory";
 
 const token = "br7cj5nrh5r9l4n3osvg";
-const pageSize = 5;
+const pageSize = 3;
 let socket;
 
 const Instruments = () => {
+  const classes = useStyles();
   const [instruments, setInstruments] = useState([]);
   const [instrumentData, setInstrumentData] = useState("");
   const [realTimeData, setRealTimeData] = useState("");
@@ -126,35 +128,54 @@ const Instruments = () => {
   const { totalCount, filteredData } = getPagedData();
 
   return (
-    <React.Fragment>
-      <Grid container spacing={3}>
-        <Grid item sm={6}>
-          <SearchBox value={searchQuery} onChange={handleSearch} />
-          <InstrumentsTable
-            data={instrumentData}
-            instruments={filteredData}
-            onClick={handleClick}
-          />
-          <PaginationContainer
-            itemsCount={totalCount}
+    <Grid container spacing={3}>
+      {/* Search Box and Instruments Table */}
+      <Grid item xs={12} md={8}>
+        <Paper className={classes.paper}>
+          <InstrumentsDirectory
+            searchQuery={searchQuery}
+            handleSearch={handleSearch}
+            handleClick={handleClick}
+            handlePageChange={handlePageChange}
+            instrumentData={instrumentData}
+            filteredData={filteredData}
+            totalCount={totalCount}
             pageSize={pageSize}
-            onPageChange={handlePageChange}
           />
-        </Grid>
-        <Grid item sm={6}>
-          <InstrumentInfo
-            realTimeData={realTimeData}
-            data={instrumentData}
+        </Paper>
+      </Grid>
+      {/* Instrument Info */}
+      <Grid
+        item
+        xs={12}
+        md={4}
+        container
+        direction="column"
+        justify="space-between"
+        alignItems="center"
+      >
+        <InstrumentQuote
+          realTimeData={realTimeData}
+          data={instrumentData}
+          currentInstrument={currentInstrument}
+        />
+      </Grid>
+      {/* Monthly Chart */}
+      <Grid item xs={12}>
+        <Paper className={classes.paper}>
+          <InstrumentChart
+            data={monthtlyData}
             currentInstrument={currentInstrument}
           />
-        </Grid>
+        </Paper>
       </Grid>
-      <InstrumentChart
-        data={monthtlyData}
-        currentInstrument={currentInstrument}
-      />
-      <ReactVirtualizedTable instruments={monthtlyData} />
-    </React.Fragment>
+      {/* Historic Prices */}
+      <Grid item xs={12}>
+        <Paper className={classes.paper}>
+          <HistoricPricesTable instruments={monthtlyData} />
+        </Paper>
+      </Grid>
+    </Grid>
   );
 };
 

@@ -1,4 +1,5 @@
 import React from "react";
+import Typography from "@material-ui/core/Typography";
 
 const RealTimeQuote = ({
   realTimeData,
@@ -9,11 +10,23 @@ const RealTimeQuote = ({
 }) => {
   return (
     <React.Fragment>
-      <h1>Quote</h1>
-      <div>Symbol: {realTimeData ? currentInstrument : ""}</div>
-      <div>Price: {realTimeData ? price : ""}</div>
-      <div>Last Refreshed: {realTimeData ? realTimeLastRefreshed : ""}</div>
-      {volume ? <div>Volume: {volume}</div> : ""}
+      <Typography component="h2" variant="h6" color="primary" gutterBottom>
+        Cotización (Tiempo Real)
+      </Typography>
+      <Typography component="p" variant="h4">
+        {realTimeData ? currentInstrument : ""}
+      </Typography>
+      <Typography color="textSecondary">
+        Precio: {realTimeData ? price : ""}
+      </Typography>
+      <Typography color="textSecondary">
+        Ultima actualización: {realTimeData ? realTimeLastRefreshed : ""}
+      </Typography>
+      {volume ? (
+        <Typography color="textSecondary">Volumen: {volume}</Typography>
+      ) : (
+        ""
+      )}
     </React.Fragment>
   );
 };

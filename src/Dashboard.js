@@ -8,7 +8,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 
 import Instruments from "./components/instruments";
 
-const useStyles = makeStyles((theme) => ({
+export const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
   },
@@ -71,9 +71,12 @@ function Dashboard() {
           </Typography>
         </Toolbar>
       </AppBar>
-      <Container fixed>
-        <Instruments />
-      </Container>
+      <main className={classes.content}>
+        <div className={classes.appBarSpacer} />
+        <Container maxWidth="lg" className={classes.container}>
+          <Instruments />
+        </Container>
+      </main>
     </div>
   );
 }

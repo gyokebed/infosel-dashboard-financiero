@@ -1,14 +1,23 @@
 import React from "react";
+import Typography from "@material-ui/core/Typography";
 
 const Quote = ({ data, lastRefreshed }) => {
   return (
     <React.Fragment>
-      <h1>Quote (Day)</h1>
-      <div>Open price: {data.o}</div>
-      <div>High price: {data.h}</div>
-      <div>Low price: {data.l}</div>
-      <div>Previous close price: {data.pc}</div>
-      <div>Last refreshed: {lastRefreshed}</div>
+      <Typography component="h2" variant="h6" color="primary" gutterBottom>
+        Cotización
+      </Typography>
+      <Typography color="textSecondary">
+        Precio de apertura: {data.o}
+      </Typography>
+      <Typography color="textSecondary">Precio máximo: {data.h}</Typography>
+      <Typography color="textSecondary">Precio mínimo: {data.l}</Typography>
+      <Typography color="textSecondary">
+        Precio de cierre previo: {data.pc}
+      </Typography>
+      <Typography color="textSecondary">
+        Última actualización: {lastRefreshed}
+      </Typography>
     </React.Fragment>
   );
 };
