@@ -5,6 +5,7 @@ import InstrumentInfo from "./instrumentInfo";
 import InstrumentChart from "./instrumentChart";
 import PaginationContainer from "./common/pagination";
 import ReactVirtualizedTable from "./historicPricesTable";
+import SearchBox from "./searchBox";
 import { paginate } from "../utils/paginate";
 import {
   getListOfInstruments,
@@ -24,6 +25,7 @@ const Instruments = () => {
   const [currentInstrument, setCurrentInstrument] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [monthtlyData, setMonthtlyData] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     async function getData() {
@@ -58,7 +60,6 @@ const Instruments = () => {
       // Listen for messages
       socket.addEventListener("message", function (event) {
         const receivedData = JSON.parse(event.data);
-        // console.log("Message from server ", receivedData);
         if (receivedData.type === "trade") setRealTimeData(receivedData);
       });
     }
@@ -100,9 +101,26 @@ const Instruments = () => {
     setCurrentPage(page);
   };
 
+  const handleSearch = (query) => {
+    setSearchQuery(query);
+    setCurrentPage(1);
+  };
+
   const getPagedData = () => {
-    const filteredData = paginate(instruments, currentPage, pageSize);
-    return { totalCount: instruments.length, filteredData };
+    let filtered = [...instruments];
+    if (searchQuery)
+      filtered = instruments.filter(
+        (instrument) =>
+          instrument.symbol
+            .toLowerCase()
+            .startsWith(searchQuery.toLowerCase()) ||
+          instrument.description
+            .toLowerCase()
+            .startsWith(searchQuery.toLowerCase())
+      );
+
+    const filteredData = paginate(filtered, currentPage, pageSize);
+    return { totalCount: filtered.length, filteredData };
   };
 
   const { totalCount, filteredData } = getPagedData();
@@ -111,6 +129,7 @@ const Instruments = () => {
     <React.Fragment>
       <Grid container spacing={3}>
         <Grid item sm={6}>
+          <SearchBox value={searchQuery} onChange={handleSearch} />
           <InstrumentsTable
             data={instrumentData}
             instruments={filteredData}
