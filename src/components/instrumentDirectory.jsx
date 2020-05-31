@@ -16,11 +16,7 @@ const InstrumentsDirectory = ({
   return (
     <React.Fragment>
       <SearchBox value={searchQuery} onChange={handleSearch} />
-      <InstrumentsTable
-        data={instrumentData}
-        instruments={filteredData}
-        onClick={handleClick}
-      />
+      <InstrumentsTable instruments={filteredData} onClick={handleClick} />
       <PaginationContainer
         itemsCount={totalCount}
         pageSize={pageSize}

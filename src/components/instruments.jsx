@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
+import InstrumentContext from "../context/instrumentsContext";
 import { Grid, Paper, Container } from "@material-ui/core";
-
 import { useStyles } from "../Dashboard";
 import InstrumentQuote from "./instrumentQuote";
 import InstrumentChart from "./instrumentChart";
@@ -127,63 +127,65 @@ const Instruments = () => {
   const { totalCount, filteredData } = getPagedData();
 
   return (
-    <main className={classes.content}>
-      <div className={classes.appBarSpacer}>
-        <Container maxWidth="lg" className={classes.container}>
-          <Grid container spacing={3}>
-            {/* Search Box and Instruments Table */}
-            <Grid item xs={12} md={8}>
-              <Paper className={classes.paper}>
-                <InstrumentsDirectory
-                  searchQuery={searchQuery}
-                  handleSearch={handleSearch}
-                  handleClick={handleClick}
-                  handlePageChange={handlePageChange}
-                  instrumentData={instrumentData}
-                  filteredData={filteredData}
-                  totalCount={totalCount}
-                  pageSize={pageSize}
-                />
-              </Paper>
-            </Grid>
-            {/* Instrument Info */}
-            <Grid
-              item
-              xs={12}
-              md={4}
-              container
-              direction="column"
-              justify="space-between"
-              alignItems="center"
-            >
-              <InstrumentQuote
-                realTimeData={realTimeData}
-                data={instrumentData}
-                currentInstrument={currentInstrument}
-              />
-            </Grid>
-            {/* Monthly Chart */}
-            <Grid item xs={12}>
-              <Paper className={classes.paper}>
-                <InstrumentChart
-                  data={monthtlyData}
+    <InstrumentContext.Provider value={filteredData}>
+      <main className={classes.content}>
+        <div className={classes.appBarSpacer}>
+          <Container maxWidth="lg" className={classes.container}>
+            <Grid container spacing={3}>
+              {/* Search Box and Instruments Table */}
+              <Grid item xs={12} md={8}>
+                <Paper className={classes.paper}>
+                  <InstrumentsDirectory
+                    searchQuery={searchQuery}
+                    handleSearch={handleSearch}
+                    handleClick={handleClick}
+                    handlePageChange={handlePageChange}
+                    instrumentData={instrumentData}
+                    filteredData={filteredData}
+                    totalCount={totalCount}
+                    pageSize={pageSize}
+                  />
+                </Paper>
+              </Grid>
+              {/* Instrument Info */}
+              <Grid
+                item
+                xs={12}
+                md={4}
+                container
+                direction="column"
+                justify="space-between"
+                alignItems="center"
+              >
+                <InstrumentQuote
+                  realTimeData={realTimeData}
+                  data={instrumentData}
                   currentInstrument={currentInstrument}
                 />
-              </Paper>
+              </Grid>
+              {/* Monthly Chart */}
+              <Grid item xs={12}>
+                <Paper className={classes.paper}>
+                  <InstrumentChart
+                    data={monthtlyData}
+                    currentInstrument={currentInstrument}
+                  />
+                </Paper>
+              </Grid>
+              {/* Historic Prices */}
+              <Grid item xs={12}>
+                <Paper
+                  className={classes.paper}
+                  style={{ height: 400, width: "100%" }}
+                >
+                  <HistoricPricesTable instruments={monthtlyData} />
+                </Paper>
+              </Grid>
             </Grid>
-            {/* Historic Prices */}
-            <Grid item xs={12}>
-              <Paper
-                className={classes.paper}
-                style={{ height: 400, width: "100%" }}
-              >
-                <HistoricPricesTable instruments={monthtlyData} />
-              </Paper>
-            </Grid>
-          </Grid>
-        </Container>
-      </div>
-    </main>
+          </Container>
+        </div>
+      </main>
+    </InstrumentContext.Provider>
   );
 };
 

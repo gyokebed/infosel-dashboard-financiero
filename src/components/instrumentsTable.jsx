@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useContext } from "react";
+import InstrumentsContext from "../context/instrumentsContext";
 import {
   withStyles,
   makeStyles,
@@ -34,8 +35,9 @@ const useStyles = makeStyles({
   },
 });
 
-function InstrumentsTable({ data, instruments, onClick }) {
+function InstrumentsTable({ onClick }) {
   const classes = useStyles();
+  const instruments = useContext(InstrumentsContext);
 
   const rows = instruments.map((instrument) => {
     return {
