@@ -1,7 +1,7 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React, { useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Pagination from "@material-ui/lab/Pagination";
+import DirectoryContext from "../../context/directoryContext";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -13,9 +13,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const PaginationContainer = ({ itemsCount, pageSize, onPageChange }) => {
+const PaginationContainer = () => {
   const classes = useStyles();
-  const pagesCount = Math.ceil(itemsCount / pageSize);
+  const { onPageChange, totalCount, pageSize } = useContext(DirectoryContext);
+  const pagesCount = Math.ceil(totalCount / pageSize);
   if (pagesCount === 1) return null;
 
   return (
@@ -27,12 +28,6 @@ const PaginationContainer = ({ itemsCount, pageSize, onPageChange }) => {
       />
     </div>
   );
-};
-
-PaginationContainer.propTypes = {
-  itemsCount: PropTypes.number.isRequired,
-  pageSize: PropTypes.number.isRequired,
-  onPageChange: PropTypes.func.isRequired,
 };
 
 export default PaginationContainer;

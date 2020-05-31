@@ -129,10 +129,13 @@ const Instruments = () => {
   return (
     <DirectoryContext.Provider
       value={{
-        instrumentsList: filteredData, // InstrumentsTable uses this value
-        onClick: handleClick, // InstrumentsTable uses this value
-        searchQuery: searchQuery, // SearchBox uses this value
-        onSearch: handleSearch, // SearchBox uses this value
+        instrumentsList: filteredData,
+        onClick: handleClick,
+        searchQuery: searchQuery,
+        onSearch: handleSearch,
+        onPageChange: handlePageChange,
+        totalCount: totalCount,
+        pageSize: pageSize,
       }}
     >
       <main className={classes.content}>
@@ -142,11 +145,7 @@ const Instruments = () => {
               {/* Search Box and Instruments Table */}
               <Grid item xs={12} md={8}>
                 <Paper className={classes.paper}>
-                  <InstrumentsDirectory
-                    handlePageChange={handlePageChange}
-                    totalCount={totalCount}
-                    pageSize={pageSize}
-                  />
+                  <InstrumentsDirectory />
                 </Paper>
               </Grid>
               {/* Instrument Info */}

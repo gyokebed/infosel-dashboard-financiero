@@ -3,21 +3,12 @@ import SearchBox from "./searchBox";
 import InstrumentsTable from "./instrumentsTable";
 import PaginationContainer from "./common/pagination";
 
-const InstrumentsDirectory = ({
-  handleSearch,
-  handlePageChange,
-  totalCount,
-  pageSize,
-}) => {
+const InstrumentsDirectory = () => {
   return (
     <React.Fragment>
       <SearchBox />
       <InstrumentsTable />
-      <PaginationContainer
-        itemsCount={totalCount}
-        pageSize={pageSize}
-        onPageChange={handlePageChange}
-      />
+      <PaginationContainer />
     </React.Fragment>
   );
 };
