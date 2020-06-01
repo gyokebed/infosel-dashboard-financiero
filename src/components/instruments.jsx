@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import DirectoryContext from "../context/directoryContext";
+import QuoteContext from "../context/quoteContext";
 import { Grid, Paper, Container } from "@material-ui/core";
 import { useStyles } from "../Dashboard";
 import InstrumentQuote from "./instrumentQuote";
@@ -126,6 +127,25 @@ const Instruments = () => {
 
   const { totalCount, filteredData } = getPagedData();
 
+  // Quote values
+  const price =
+    realTimeData.type === "trade" ? realTimeData.data[0].p : instrumentData.c;
+  const volume = realTimeData.type === "trade" ? realTimeData.data[0].v : "";
+  let realTimeLastRefreshed =
+    realTimeData.type === "trade"
+      ? realTimeData.data[0].t
+      : instrumentData.t * 1000;
+
+  const lastRefreshed = convert(instrumentData.t * 1000);
+
+  function convert(unixTimestamp) {
+    const dateObject = new Date(unixTimestamp);
+    const humanDateFormat = dateObject.toLocaleString();
+    return humanDateFormat;
+  }
+
+  realTimeLastRefreshed = convert(realTimeLastRefreshed);
+
   return (
     <DirectoryContext.Provider
       value={{
@@ -138,54 +158,62 @@ const Instruments = () => {
         pageSize: pageSize,
       }}
     >
-      <main className={classes.content}>
-        <div className={classes.appBarSpacer}>
-          <Container maxWidth="lg" className={classes.container}>
-            <Grid container spacing={3}>
-              {/* Search Box and Instruments Table */}
-              <Grid item xs={12} md={8}>
-                <Paper className={classes.paper}>
-                  <InstrumentsDirectory />
-                </Paper>
-              </Grid>
-              {/* Instrument Info */}
-              <Grid
-                item
-                xs={12}
-                md={4}
-                container
-                direction="column"
-                justify="space-between"
-                alignItems="center"
-              >
-                <InstrumentQuote
-                  realTimeData={realTimeData}
-                  data={instrumentData}
-                  currentInstrument={currentInstrument}
-                />
-              </Grid>
-              {/* Monthly Chart */}
-              <Grid item xs={12}>
-                <Paper className={classes.paper}>
-                  <InstrumentChart
-                    data={monthtlyData}
-                    currentInstrument={currentInstrument}
-                  />
-                </Paper>
-              </Grid>
-              {/* Historic Prices */}
-              <Grid item xs={12}>
-                <Paper
-                  className={classes.paper}
-                  style={{ height: 400, width: "100%" }}
+      <QuoteContext.Provider
+        value={{
+          realTimeData,
+          data: instrumentData,
+          currentInstrument,
+          price,
+          volume,
+          lastRefreshed,
+          realTimeLastRefreshed,
+        }}
+      >
+        <main className={classes.content}>
+          <div className={classes.appBarSpacer}>
+            <Container maxWidth="lg" className={classes.container}>
+              <Grid container spacing={3}>
+                {/* Search Box and Instruments Table */}
+                <Grid item xs={12} md={8}>
+                  <Paper className={classes.paper}>
+                    <InstrumentsDirectory />
+                  </Paper>
+                </Grid>
+                {/* Instrument Info */}
+                <Grid
+                  item
+                  xs={12}
+                  md={4}
+                  container
+                  direction="column"
+                  justify="space-between"
+                  alignItems="center"
                 >
-                  <HistoricPricesTable instruments={monthtlyData} />
-                </Paper>
+                  <InstrumentQuote />
+                </Grid>
+                {/* Monthly Chart */}
+                <Grid item xs={12}>
+                  <Paper className={classes.paper}>
+                    <InstrumentChart
+                      data={monthtlyData}
+                      currentInstrument={currentInstrument}
+                    />
+                  </Paper>
+                </Grid>
+                {/* Historic Prices */}
+                <Grid item xs={12}>
+                  <Paper
+                    className={classes.paper}
+                    style={{ height: 400, width: "100%" }}
+                  >
+                    <HistoricPricesTable instruments={monthtlyData} />
+                  </Paper>
+                </Grid>
               </Grid>
-            </Grid>
-          </Container>
-        </div>
-      </main>
+            </Container>
+          </div>
+        </main>
+      </QuoteContext.Provider>
     </DirectoryContext.Provider>
   );
 };

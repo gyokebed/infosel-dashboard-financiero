@@ -1,6 +1,6 @@
 import React from "react";
 
 const DirectoryContext = React.createContext();
-DirectoryContext.displayName = "InstrumentsContext";
+DirectoryContext.displayName = "DirectoryContext";
 
 export default DirectoryContext;

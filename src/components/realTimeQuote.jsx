@@ -1,13 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
+import QuoteContext from "../context/quoteContext";
 import Typography from "@material-ui/core/Typography";
 
-const RealTimeQuote = ({
-  realTimeData,
-  price,
-  volume,
-  realTimeLastRefreshed,
-  currentInstrument,
-}) => {
+const RealTimeQuote = () => {
+  const {
+    realTimeData,
+    price,
+    volume,
+    realTimeLastRefreshed,
+    currentInstrument,
+  } = useContext(QuoteContext);
   return (
     <React.Fragment>
       <Typography component="h2" variant="h6" color="primary" gutterBottom>
