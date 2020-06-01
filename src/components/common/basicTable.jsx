@@ -9,6 +9,7 @@ import {
   TableHead,
   TableRow,
   Button,
+  Typography,
 } from "@material-ui/core";
 
 const StyledTableCell = withStyles((theme) => ({
@@ -36,6 +37,14 @@ const useStyles = makeStyles({
 
 const BasicTable = ({ rows, onClick, headerColumns }) => {
   const classes = useStyles();
+
+  if (rows.length === 0)
+    return (
+      <Typography component="p">
+        No hay información disponible para esta búsqueda.
+      </Typography>
+    );
+
   return (
     <TableContainer>
       <Table className={classes.table} aria-label="customized table">

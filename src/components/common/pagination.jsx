@@ -17,7 +17,7 @@ const PaginationContainer = () => {
   const classes = useStyles();
   const { onPageChange, totalCount, pageSize } = useContext(DirectoryContext);
   const pagesCount = Math.ceil(totalCount / pageSize);
-  if (pagesCount === 1) return null;
+  if (pagesCount === 1 || !pagesCount) return null;
 
   return (
     <div className={classes.root}>
