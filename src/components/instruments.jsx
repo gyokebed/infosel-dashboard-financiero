@@ -4,7 +4,7 @@ import QuoteContext from "../context/quoteContext";
 import { Grid, Paper, Container } from "@material-ui/core";
 import { useStyles } from "../Dashboard";
 import InstrumentQuote from "./quote/instrumentQuote";
-import InstrumentChart from "./instrumentChart";
+import InstrumentChart from "./chart/instrumentChart";
 import HistoricPricesTable from "./historicPrices/historicPricesTable";
 import { paginate } from "../utils/paginate";
 import {
