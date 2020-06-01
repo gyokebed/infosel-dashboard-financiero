@@ -1,7 +1,7 @@
 import React from "react";
-import SearchBox from "./searchBox";
+import SearchBox from "../common/searchBox";
 import InstrumentsTable from "./instrumentsTable";
-import PaginationContainer from "./common/pagination";
+import PaginationContainer from "../common/pagination";
 
 const InstrumentsDirectory = () => {
   return (

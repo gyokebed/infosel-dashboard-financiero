@@ -1,5 +1,4 @@
-import React, { useContext } from "react";
-import DirectoryContext from "../context/directoryContext";
+import React from "react";
 import {
   withStyles,
   makeStyles,
@@ -35,24 +34,18 @@ const useStyles = makeStyles({
   },
 });
 
-function InstrumentsTable() {
+const BasicTable = ({ rows, onClick, headerColumns }) => {
   const classes = useStyles();
-  const { instrumentsList, onClick } = useContext(DirectoryContext);
-
-  const rows = instrumentsList.map((instrument) => {
-    return {
-      symbol: instrument.symbol,
-      name: instrument.description || instrument.displaySymbol,
-    };
-  });
-
   return (
     <TableContainer>
       <Table className={classes.table} aria-label="customized table">
         <TableHead>
           <TableRow>
-            <StyledTableCell>Symbol</StyledTableCell>
-            <StyledTableCell>Name</StyledTableCell>
+            {headerColumns.map((hColumn, index) => {
+              return (
+                <StyledTableCell key={index}>{hColumn.label}</StyledTableCell>
+              );
+            })}
           </TableRow>
         </TableHead>
         <TableBody>
@@ -77,6 +70,6 @@ function InstrumentsTable() {
       </Table>
     </TableContainer>
   );
-}
+};
 
-export default InstrumentsTable;
+export default BasicTable;

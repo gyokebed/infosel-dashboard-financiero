@@ -13,7 +13,7 @@ import {
   updateMonthlyData,
   getMonthlyData,
 } from "../services/instrumentsService";
-import InstrumentsDirectory from "./instrumentDirectory";
+import InstrumentsDirectory from "./directory/instrumentsDirectory";
 
 const token = "br7cj5nrh5r9l4n3osvg";
 const pageSize = 3;
@@ -151,11 +151,11 @@ const Instruments = () => {
       value={{
         instrumentsList: filteredData,
         onClick: handleClick,
-        searchQuery: searchQuery,
+        searchQuery,
         onSearch: handleSearch,
         onPageChange: handlePageChange,
-        totalCount: totalCount,
-        pageSize: pageSize,
+        totalCount,
+        pageSize,
       }}
     >
       <QuoteContext.Provider

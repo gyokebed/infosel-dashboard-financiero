@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import DirectoryContext from "../context/directoryContext";
+import DirectoryContext from "../../context/directoryContext";
 import { TextField, makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
