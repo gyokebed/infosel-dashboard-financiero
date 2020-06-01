@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import QuoteContext from "../context/quoteContext";
+import QuoteContext from "../../context/quoteContext";
 import Typography from "@material-ui/core/Typography";
 
 const RealTimeQuote = () => {

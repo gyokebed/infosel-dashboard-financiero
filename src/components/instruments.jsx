@@ -3,7 +3,7 @@ import DirectoryContext from "../context/directoryContext";
 import QuoteContext from "../context/quoteContext";
 import { Grid, Paper, Container } from "@material-ui/core";
 import { useStyles } from "../Dashboard";
-import InstrumentQuote from "./instrumentQuote";
+import InstrumentQuote from "./quote/instrumentQuote";
 import InstrumentChart from "./instrumentChart";
 import HistoricPricesTable from "./historicPricesTable";
 import { paginate } from "../utils/paginate";

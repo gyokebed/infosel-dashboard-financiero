@@ -1,6 +1,6 @@
 import React from "react";
 import Paper from "@material-ui/core/Paper";
-import { useStyles } from "../Dashboard";
+import { useStyles } from "../../Dashboard";
 import RealTimeQuote from "./realTimeQuote";
 import Quote from "./quote";
 
