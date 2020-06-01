@@ -192,23 +192,31 @@ const Instruments = () => {
                   <InstrumentQuote />
                 </Grid>
                 {/* Monthly Chart */}
-                <Grid item xs={12}>
-                  <Paper className={classes.paper}>
-                    <InstrumentChart
-                      data={monthtlyData}
-                      currentInstrument={currentInstrument}
-                    />
-                  </Paper>
-                </Grid>
+                {monthtlyData.length ? (
+                  <Grid item xs={12}>
+                    <Paper className={classes.paper}>
+                      <InstrumentChart
+                        data={monthtlyData}
+                        currentInstrument={currentInstrument}
+                      />
+                    </Paper>
+                  </Grid>
+                ) : (
+                  ""
+                )}
                 {/* Historic Prices */}
-                <Grid item xs={12}>
-                  <Paper
-                    className={classes.paper}
-                    style={{ height: 400, width: "100%" }}
-                  >
-                    <HistoricPricesTable instruments={monthtlyData} />
-                  </Paper>
-                </Grid>
+                {monthtlyData.length ? (
+                  <Grid item xs={12}>
+                    <Paper
+                      className={classes.paper}
+                      style={{ height: 400, width: "100%" }}
+                    >
+                      <HistoricPricesTable instruments={monthtlyData} />
+                    </Paper>
+                  </Grid>
+                ) : (
+                  ""
+                )}
               </Grid>
             </Container>
           </div>

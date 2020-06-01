@@ -163,36 +163,36 @@ const HistoricPricesTable = ({ instruments: rows }) => {
       columns={[
         {
           width: 200,
-          label: "Date",
+          label: "Fecha",
           dataKey: "Date",
         },
         {
           width: 120,
-          label: "Open",
+          label: "Apertura",
           dataKey: "Open",
           numeric: true,
         },
         {
           width: 120,
-          label: "High",
+          label: "Máximo",
           dataKey: "High",
           numeric: true,
         },
         {
           width: 120,
-          label: "Low",
+          label: "Mínimo",
           dataKey: "Low",
           numeric: true,
         },
         {
           width: 120,
-          label: "Close",
+          label: "Cierre",
           dataKey: "Close",
           numeric: true,
         },
         {
           width: 120,
-          label: "Volume",
+          label: "Volumen",
           dataKey: "Volume",
           numeric: true,
         },
