@@ -5,9 +5,9 @@ import Dashboard from "./Dashboard";
 import * as serviceWorker from "./serviceWorker";
 
 ReactDOM.render(
-  <React.StrictMode>
-    <Dashboard />
-  </React.StrictMode>,
+  // <React.StrictMode>
+  <Dashboard />,
+  // </React.StrictMode>,
   document.getElementById("root")
 );
 
