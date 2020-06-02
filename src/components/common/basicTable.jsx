@@ -81,4 +81,7 @@ const BasicTable = ({ rows, onClick, headerColumns }) => {
   );
 };
 
+BasicTable.defaultProps = {
+  rows: [],
+};
 export default BasicTable;
