@@ -3,9 +3,13 @@
 This project was developed with:
 
 Create React App
+
 Axios - HTTP requests (Promise based)
+
 Material UI - UI framework
+
 Devextreme - Charts
+
 Enzyme - Unit testing
 
 ## Available Scripts
