@@ -16,7 +16,7 @@ Enzyme - Unit testing
 
 In the project directory, you can run:
 
-yarn install or npm install
+### `yarn install` or `npm install`
 
 Intalls the required packages
 
